@@ -18,7 +18,8 @@ export default function CreateJob({ reload }) {
       body: JSON.stringify({
         title,
         amount,
-        client: address
+        client: address,
+        contractJobId
       })
     });
 

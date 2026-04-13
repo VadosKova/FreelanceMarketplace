@@ -6,6 +6,9 @@ const jobSchema = new mongoose.Schema({
   client: String,
   freelancer: String,
   amount: String,
+  contractJobId: Number,
+  applicants: [String],
+  submission: String,
   status: {
     type: String,
     default: "open"
