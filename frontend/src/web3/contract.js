@@ -16,6 +16,13 @@ const abi = [
     "outputs":[{"internalType":"uint256","name":"","type":"uint256"}],
     "stateMutability":"view",
     "type":"function"
+  },
+  {
+    "inputs":[{"internalType":"uint256","name":"jobId","type":"uint256"}],
+    "name":"releasePayment",
+    "outputs":[],
+    "stateMutability":"nonpayable",
+    "type":"function"
   }
 ];
 
@@ -32,6 +39,20 @@ export const createJobOnChain = async (freelancer, amount) => {
   await tx.wait();
 
   const count = await contract.jobCount();
-
   return Number(count) - 1;
+};
+
+export const releasePayment = async (jobId) => {
+  const provider = new ethers.BrowserProvider(window.ethereum);
+  const signer = await provider.getSigner();
+
+  const contract = new ethers.Contract(contractAddress, abi, signer);
+
+  await contract.releasePayment(jobId);
+};
+
+export const getBalance = async (address) => {
+  const provider = new ethers.BrowserProvider(window.ethereum);
+  const balance = await provider.getBalance(address);
+  return ethers.formatEther(balance);
 };
