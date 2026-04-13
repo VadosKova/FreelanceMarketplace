@@ -9,6 +9,13 @@ const abi = [
     "outputs":[],
     "stateMutability":"payable",
     "type":"function"
+  },
+  {
+    "inputs":[],
+    "name":"jobCount",
+    "outputs":[{"internalType":"uint256","name":"","type":"uint256"}],
+    "stateMutability":"view",
+    "type":"function"
   }
 ];
 
@@ -22,5 +29,9 @@ export const createJobOnChain = async (freelancer, amount) => {
     value: ethers.parseEther(amount),
   });
 
-  return await tx.wait();
+  await tx.wait();
+
+  const count = await contract.jobCount();
+
+  return Number(count) - 1;
 };
