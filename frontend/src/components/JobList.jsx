@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import ApplyJob from "./ApplyJob";
 
 export default function JobList({ refresh }) {
   const [jobs, setJobs] = useState([]);
@@ -18,6 +19,10 @@ export default function JobList({ refresh }) {
           <p><b>{job.title}</b></p>
           <p>{job.amount} ETH</p>
           <p>Status: {job.status}</p>
+
+          {job.status === "open" && (
+            <ApplyJob jobId={job._id} />
+          )}
         </div>
       ))}
     </div>
