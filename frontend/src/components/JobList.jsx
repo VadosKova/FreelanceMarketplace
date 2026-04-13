@@ -25,6 +25,26 @@ export default function JobList({ refresh }) {
           )}
         </div>
       ))}
+
+      {job.applicants?.map((addr) => (
+        <button
+          key={addr}
+          onClick={async () => {
+            await fetch("http://localhost:5000/api/jobs/assign", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json"
+              },
+              body: JSON.stringify({
+                jobId: job._id,
+                freelancer: addr
+              })
+            });
+          }}
+        >
+          Assign {addr.slice(0, 6)}
+        </button>
+      ))}
     </div>
   );
 }
