@@ -19,3 +19,15 @@ export const applyJob = async (req, res) => {
 
   res.json(job);
 };
+
+export const assignFreelancer = async (req, res) => {
+  const { jobId, freelancer } = req.body;
+
+  const job = await Job.findById(jobId);
+  job.freelancer = freelancer;
+  job.status = "in_progress";
+
+  await job.save();
+
+  res.json(job);
+};
