@@ -1,4 +1,4 @@
-export default function ApplyJob({ jobId }) {
+export default function ApplyJob({ jobId, reload }) {
   const apply = async () => {
     const address = window.ethereum.selectedAddress;
 
@@ -13,7 +13,7 @@ export default function ApplyJob({ jobId }) {
       })
     });
 
-    alert("Applied!");
+    reload();
   };
 
   return <button onClick={apply}>Apply</button>;
