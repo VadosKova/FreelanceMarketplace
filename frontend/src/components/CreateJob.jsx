@@ -8,7 +8,7 @@ export default function CreateJob({ reload }) {
   const handleCreate = async () => {
     const address = window.ethereum.selectedAddress;
 
-    await createJobOnChain(address, amount);
+    const contractJobId = await createJobOnChain(address, amount);
 
     await fetch("http://localhost:5000/api/jobs", {
       method: "POST",
