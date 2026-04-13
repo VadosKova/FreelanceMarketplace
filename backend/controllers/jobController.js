@@ -31,3 +31,28 @@ export const assignFreelancer = async (req, res) => {
 
   res.json(job);
 };
+
+export const submitWork = async (req, res) => {
+  const { jobId, submission } = req.body;
+
+  const job = await Job.findById(jobId);
+
+  job.submission = submission;
+  job.status = "review";
+
+  await job.save();
+
+  res.json(job);
+};
+
+export const rejectJob = async (req, res) => {
+  const { jobId } = req.body;
+
+  const job = await Job.findById(jobId);
+
+  job.status = "rejected";
+
+  await job.save();
+
+  res.json(job);
+};
