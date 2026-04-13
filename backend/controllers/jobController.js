@@ -9,3 +9,13 @@ export const getJobs = async (req, res) => {
   const jobs = await Job.find();
   res.json(jobs);
 };
+
+export const applyJob = async (req, res) => {
+  const { jobId, address } = req.body;
+
+  const job = await Job.findById(jobId);
+  job.applicants.push(address);
+  await job.save();
+
+  res.json(job);
+};
