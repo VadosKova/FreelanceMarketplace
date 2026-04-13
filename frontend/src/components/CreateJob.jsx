@@ -1,14 +1,12 @@
 import { useState } from "react";
 import { createJobOnChain } from "../web3/contract";
 
-export default function CreateJob({ reload }) {
+export default function CreateJob({ reload, account }) {
   const [title, setTitle] = useState("");
   const [amount, setAmount] = useState("");
 
   const handleCreate = async () => {
-    const address = window.ethereum.selectedAddress;
-
-    const contractJobId = await createJobOnChain(address, amount);
+    const contractJobId = await createJobOnChain(account, amount);
 
     await fetch("http://localhost:5000/api/jobs", {
       method: "POST",
@@ -18,7 +16,7 @@ export default function CreateJob({ reload }) {
       body: JSON.stringify({
         title,
         amount,
-        client: address,
+        client: account,
         contractJobId
       })
     });
